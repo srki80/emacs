@@ -1,0 +1,794 @@
+/*
+ *        This program is the CONFIDENTIAL and PROPRIETARY property 
+ *        of STR Software Company. Any unauthorized use, reproduction or
+ *        transfer of this computer program is strictly prohibited.
+ *
+ *      Copyright (c) 1994 - 2000 STR Software Company.
+ *        This is an unpublished work, and is subject to limited
+ *      distribution and restricted disclosure only. 
+ *      ALL RIGHTS RESERVED.
+ *
+ *        $Id: email.cc,v 1.51 2012/11/06 19:19:58 andrew Exp $
+ */
+
+#include <string>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h> 
+#include <ctype.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <sys/stat.h>
+#ifndef __INTERIX
+#include <sysexits.h>
+#endif
+
+#include "strlog.h"
+#include "phonenum.h"
+#include "config.h"
+#include "errorcod.h"
+#include "email.h"
+#include "faxcom.h"
+#include "faxdrvd.h"
+#include "faxinque.h"
+#include "faxjob.h"
+#include "grphclst.h"
+#include "phonelin.h"
+#include "port.h"
+#include "servrlst.h"
+#include "tcpip.h"
+#include "fileutil.h"
+#include "misc.h"
+#include "strxtrct.h"
+#include "mime.h"
+#include "s1files.h"
+#include "ipc.h"
+
+extern "C" {extern char *md5digest(FILE *infile, long *len);};
+extern "C" {extern int to64(FILE *infile, FILE *outfile, long limit);};
+extern "C" {extern char *os_genid();};
+
+//#define _TESTMODE 
+ 
+#ifdef _TESTMODE
+
+int iTestModeFailCount = 0;
+
+#endif
+
+ErrorCode Init(FILE *outfile, char* fromname, char* fromemail, char* toname,
+               char *toemail, char* subject, char* contenttype)
+{
+    FCFN(Sendmail::Init);
+    ErrorCode status;
+    char* msgid;
+
+    // We need to encode the mime headers RFC 2047. This is done by getting the 
+    // charset and base64 encoding header data and then using encoded-word format
+    // Determine if encoding is needed based on the  value of MAILPLUS_CHARSET..
+    pszCharSet = dev.GetEnv("MAILPLUS_CHARSET", NULL);
+    if (pszCharSet != NULL) {
+        fclogf(FLL(FCDEVICE2), &fax, "Found mailplus character set %s", pszCharSet);
+    }
+
+    // If the charset is not null, we should use it to wrap all the headers
+    // If it is null, then we don't want to use it
+    int iMaxSourceSize = 256;
+    int iMaxDestSize = (iMaxSourceSize/3)*4;
+
+    fclogf(FLL(FCDEVICE2), &fax, "Calculated max base 64 buffer to be %d, source size %d",
+           iMaxDestSize, iMaxSourceSize);
+    char szOutBuffer[iMaxDestSize];
+    memset(szOutBuffer, 0, sizeof(szOutBuffer));
+    // need an unsigned char for appropriate conversion
+    unsigned char szTmp[iMaxSourceSize];
+
+    if (pszCharSet != NULL) {
+        // Encode fromname
+        strcpy((char *)szTmp, fromname);
+        Base64Encode(szTmp, strlen((char *)szTmp), szOutBuffer, sizeof(szOutBuffer));
+        // Print From to out file.
+        fprintf(outfile, "From: =?%s?B?%s?= <%s>\n", pszCharSet, szOutBuffer, tei);
+
+        // Encode toname/recipient
+        strcpy((char *)szTmp, toname);
+        Base64Encode(szTmp, strlen((char *)szTmp), szOutBuffer, sizeof(szOutBuffer));
+        // Print To: to out file.
+        fprintf(outfile, "To: =?%s?B?%s?= <%s>\n", pszCharSet, szOutBuffer, toemail);  
+
+        // Encode subject
+        strcpy((char *)szTmp, subject);
+        Base64Encode(szTmp, strlen((char *)szTmp), szOutBuffer, sizeof(szOutBuffer));
+        // Print Subject: to out file.
+        fprintf(outfile, "Subject: =?%s?B?%s?=\n", pszCharSet, szOutBuffer);  
+    }
+    else {
+        fprintf(outfile, "From: \"%s\" <%s>\n", fromname, tei);
+        fprintf(outfile, "To: \"%s\" <%s>\n", toname, toemail);
+        fprintf(outfile, "Subject: %s\n", subject);
+    }
+
+    // Get a message id for this email
+    msgid = os_genid();
+    // Get a unique-ish boundary for this email
+    Boundary = MimeBoundary();
+    fclogf(FLL(FCDEVICE2), &fax, "Generated Message Boundary: %s", Boundary.chars());
+    fprintf(outfile, "Message-ID: <%s>\n", msgid);
+    free(msgid);  //RSW: This was a memory leak.
+               
+    // Keep generating headers
+    fprintf(outfile, "Mime-Version: 1.0\n");
+
+    // output the content-type and character set for the text cover page
+    if (pszCharSet != NULL) {
+        fprintf(outfile, "Content-Type: %s; charset=%s\n", contenttype, pszCharSet);
+    }
+    else {
+        fprintf(outfile, "Content-Type: %s\n", contenttype);
+    }
+    fprintf(outfile, "This is a MIME encoded message.\n");
+    AddBoundary(outfile);
+
+    return status;
+}
+
+ErrorCode AddBody(FILE *outfile, FILE *covfile, char* contenttype)
+{
+    ErrorCode status;
+
+    fprintf(outfile, "Content-Disposition: inline\n\n");
+    fgets(line, 256, covfile);
+    fputs(line, outfile);
+    char lastChar;
+
+    // Insert Coverpage
+    while ((c = getc(covfile)) != EOF) {
+        putc(c, outfile);
+        lastChar = c;
+    }
+
+    // This boundary must be set if a coverpage
+    // is not MIME encoded, otherwise it will all
+    // run together and look like CRAP
+
+    //Fix for b2474, make sure cover ends in newline
+    if(lastChar != '\n') {
+        fprintf(outfile, "\n");
+    }
+
+    return status;
+}
+ErrorCode AddAttachments(FILE *outfile, FaxInQueue &fax, \ 
+                         char* primaryattachmentname, const char* jobname)
+{
+    ErrorCode status;
+    char szAttachName[256];
+
+    Fax *tempFax = jobtable[jobname].Entry(0).GetFax();
+    //RSW: Memory leak!  Bug 1789
+    if ( tempFax )  //We were not checking this and GetFax can fail and return a NULL.  Added defensive code.
+    {               
+            Inflate(sAttachName.c_str(), sizeof(szAttachName),
+                    szAttachName, tempFax);
+   
+            sAttachName = szAttachName;
+            delete tempFax;
+            tempFax = NULL;
+    }
+    else {
+            fclog(FLL(FCERROR), "GetFax failed, null returned");
+    }              
+    if (fax.AttachName().matches("_") || this->bResetAttachName)
+        sAttachName = "";
+
+    pszAttachName = sAttachName.c_str();
+    fclog(FLL(FCDEVICE4), "Attachment name after inflation: %s",
+          pszAttachName);
+
+    while (fgets(line, 256, infile) != NULL)
+    {
+            // If this line is just a newline, keep moving!
+            if (strcmp(line, "\n") == 0)
+                continue;
+
+            // begin each attachment with a boundary
+            AddBoundary(outfile);
+
+            status = CreateMimeSegment(jobname, fax, outfile, filepos,
+                                       infile, line, lastcloseloc, pszAttachName);
+
+            if (status != Success) {
+                fclogf(FLL(FCFLOW1 | FCDEVICE1), &fax,
+                       "CreateMimeSegment returned with error %s", 
+                       status.chars());
+
+                Record_Email_Final(jobname, status, FaxFatalError,
+                                   0, 0, NULL, NULL, NULL, FALSE, 0);
+                return (status);
+            }
+
+            filepos = ftell (infile);
+                  
+            //Clear the attachname, it was set the first time createmime
+            //was called
+            if (pszAttachName)
+                pszAttachName = NULL;
+
+    } // end while
+
+    // end each multipart email with a boundary and --
+    EndBoundary(outfile);
+               
+    //MAKE SURE YOU SET bResetAttachName BACK TO FALSE AT THE END OF THIS FAX!!!!
+    //In fixing b1691, a new bug was created: b2565.  This fixes both of them.
+    //We need to know whether or not to reset the attachment names for the fax.
+    //If this is not set back to false, all subsequent faxes will reset the attachment
+    //names as well, which is not desired.
+
+    if (this->bResetAttachName) {
+            this->bResetAttachName = FALSE;
+        }
+
+    return status;
+}
+
+ErrorCode AddConfirmationAttachment(FILE *outfile, FILE *attach, char* contenttype)
+{
+        
+}
+ErrorCode AddBoundary(FILE *outfile)
+{
+    fprintf(outfile, "--%s\n", Boundary);
+}
+ErrorCode EndBoundary(FILE *outfile)
+{
+    fprintf(outfile, "--%s--\n", Boundary);
+}
+ErrorCode Execute(char* buf)
+{
+        
+}
+
+
+const char *BASE64_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+void Sendmail::_base64_encode_triple(unsigned char triple[3], char result[4])
+{
+    int tripleValue, i;
+  
+    tripleValue = triple[0];
+    tripleValue *= 256;
+    tripleValue += triple[1];
+    tripleValue *= 256;
+    tripleValue += triple[2];
+  
+    for (i=0; i<4; i++)
+        {
+            result[3-i] = BASE64_CHARS[tripleValue%64];
+            tripleValue /= 64;
+        }
+} 
+
+int Email::Base64Encode(unsigned char *source, size_t sourcelen, char *target, size_t targetlen)
+{
+    /* check if the result will fit in the target buffer */
+    if ((sourcelen+2)/3*4 > targetlen-1)
+        return 0;
+  
+    /* encode all full triples */
+    while (sourcelen >= 3)
+        {
+            _base64_encode_triple(source, target);
+            sourcelen -= 3;
+            source += 3;
+            target += 4;
+        }
+
+    /* encode the last one or two characters */
+    if (sourcelen > 0)
+        {
+            unsigned char temp[3];
+            memset(temp, 0, sizeof(temp));
+            memcpy(temp, source, sourcelen);
+            _base64_encode_triple(temp, target);
+            target[3] = '=';
+            if (sourcelen == 1)
+                target[2] = '=';
+
+            target += 4;
+        }
+
+    /* terminate the string */
+    target[0] = 0;
+  
+    return 1;
+}
+#ifndef MAXHOSTNAMELEN
+#define MAXHOSTNAMELEN 64
+#endif
+
+String Email::MimeBoundary()
+{
+
+    String sBoundary;
+
+    static int pid = 0;
+    pid = getpid();
+  
+    static time_t curtime;
+    time(&curtime);
+  
+    static char hostname[MAXHOSTNAMELEN+1];
+    gethostname(hostname, sizeof(hostname));
+
+    char szPid[64];
+    sprintf(szPid, "%d", pid);
+
+    char szTime[64];
+    sprintf(szTime, "%d", (int)time);
+
+    sBoundary = "bound";
+    sBoundary += hostname;
+    sBoundary += szPid;
+    sBoundary += szTime;
+    sBoundary += hostname;
+
+    // Boundary can't exceed 70 chars per rfc
+    if (sBoundary.length() > 70)
+        sBoundary = sBoundary.at(0, 70);
+    return sBoundary;
+}
+
+
+///////////////////////////////////////////////////////////////////////////
+//
+// The XXXX0000.TMP file is expected to contain a MIME segment at this
+// point. This function reads the segment and processes it.
+//
+// The first line of the segment is already in buffer 'psLine'.
+//
+// WARNING: This is called from a forked process!!!!
+//
+//////////////////////////////////////////////////////////////////////////
+static ErrorCode Sendmail::CreateMimeSegment(const char *jobname, FaxInQueue &fax,
+                                   FILE *outfile,  S1DISKKEY filepos, FILE *infile, char *psLine, 
+                                   long &lastclose, const char *pszAttachName)
+{
+    FCFN(Email::CreateMimeSegment);
+    Path         szWorkFileName(Config::TmpPath(), jobname, ".WRK");
+    Path         szWorkFileName2(Config::TmpPath(), jobname, ".WK2");
+    string       mime,
+        content_type,
+        filename,
+        len;
+    String       DeliveryLanguage;
+    int          start = 1;
+    int          length = 0;
+    ErrorCode    status;
+    char         *digest;
+    FILE         *wrkfile;
+    S1DISKKEY    keyEOF;
+    long         filesize;
+    size_t       count=0;
+    char         szShortSourceType[10];
+    char         szShortDestType[10];
+    char         szDiscard[2];
+    char         szNewContentType[64];
+    int          i, j;
+    char         szAttachedName[S1FILENAMEMAX];
+
+
+    wrkfile = fopen(szWorkFileName, "w+");
+    if (!wrkfile)
+        {
+            fclogf(FLL(FCFLOW1|FCDEVICE1),&fax,
+                   "Could not open Work file %s for writing", szWorkFileName.chars());
+            status.set(FileCreateError,szWorkFileName, strerror(errno),errno);
+            return(status);
+        }
+
+    fclogf(FLL(FCFLOW3|FCDEVICE3),&fax,
+           "Created workfile %s for mime segment.", szWorkFileName.chars());
+
+    mime     = ExtractStr (psLine, start, "\t");
+    len      = ExtractStr (psLine, start, "\t");
+    content_type  = ExtractStr (psLine, start, "\t");
+    filename = ExtractStr (psLine, start, "\t");
+    filename = filename.substr(0, filename.length() - 2);
+    length   = atoi (len.c_str());//len.substr (0, len.length() - 1).c_str());
+
+    fclogf(FLL(FCDEVICE2), &fax, "mime = %s, content_type = %s, \
+       filename = %s, length = %ld, pszAttachName = %s", mime.c_str(), 
+           content_type.c_str(), filename.c_str(), length, 
+           (pszAttachName == NULL) ? "null" : pszAttachName);
+
+    if (pszAttachName == NULL || strlen(pszAttachName) == 0) {
+        i = filename.length();
+        if (i >= (int)sizeof(szAttachedName))
+            i = sizeof(szAttachedName) - 1;
+        memcpy(szAttachedName, filename.c_str(), i);
+    }
+    else {
+        i = strlen(pszAttachName);
+        if (i >= (int)sizeof(szAttachedName))
+            i = sizeof(szAttachedName) - 1;
+        memcpy(szAttachedName, pszAttachName, i);
+    }
+      
+    szAttachedName[i] = 0;
+
+    if (mime != "MIME")
+        {
+            // This file was probably submitted without the ATTACH command
+            // (i.e., from the command line with an fclp -c file.com [filename])
+            // Send it, but we need to guess the type.
+            fclogf(FLL(FCFLOW1|FCDEVICE1),&fax,
+                   "Wrk File is not formatted correctly, i.e. "
+                   "There is no MIME tag information!");
+
+            /*
+            ** Assume entire file from here to the end is one segment, 
+            */
+            fseek(infile, 0, SEEK_END);            /* Find the end */
+            keyEOF = ftell(infile);                 
+            length = keyEOF - filepos;             /* Tell size, here to end */
+
+            // Include the first line (in 'psLine'), which began at 'filepos',
+            // the location where we were before the fgets.
+            fseek (infile, filepos, SEEK_SET);
+        }
+
+    fclogf(FLL(FCDEVICE2), &fax, "mime = %s, content_type = %s, \
+       filename = %s, length = %ld, pszAttachName = %s", mime.c_str(),
+           content_type.c_str(), (szAttachedName==NULL) ? "null" : szAttachedName, 
+           length, (pszAttachName==NULL) ? "null" : pszAttachName);
+
+    // Write out body part to work file
+    int readcount = 0;
+    count = length;
+    char fbuf [4096];
+
+    /*
+    ** Code below basically copies the number of bytes specified into
+    ** the workfile.
+    */
+    size_t readsize = (sizeof(fbuf) <= count) ? sizeof(fbuf) : count;
+    readcount = fread (fbuf, sizeof(char), readsize, infile);
+
+    while (readsize > 0 && count > 0 && readcount > 0) {
+        fwrite (fbuf, sizeof(char), readcount, wrkfile);
+        count -= readsize;
+        readsize = (sizeof(fbuf) <= count) ? sizeof(fbuf) : count;
+        readcount = fread (fbuf, sizeof(char), readsize, infile);
+    }
+
+    fclose(wrkfile);
+
+    // What language did they want????
+    DeliveryLanguage = fax.AuxData("DL");
+    if (DeliveryLanguage.length() <= 0) 
+        DeliveryLanguage = "PDF";
+
+    //
+    // Time to figure out if conversion is required ...
+    do
+        {
+            if (!StrToMimeType(content_type.c_str(), szDiscard, sizeof(szDiscard),
+                               szShortSourceType, sizeof(szShortSourceType)))
+                {
+                    fclogf(FLL(FCDEVICE3), &fax, 
+                           "Unknown mime-type %s", content_type.c_str());
+                    break;
+                }
+ 
+            if (strlen(szShortSourceType) < 1)
+                {
+                    fclogf(FLL(FCDEVICE3), &fax, 
+                           "No short name for mime-type %s in mime.types",
+                           content_type.c_str());
+                    break;
+                }
+
+            if (!StrToMimeType(DeliveryLanguage, szNewContentType,
+                               sizeof(szNewContentType), 
+                               szShortDestType, sizeof(szShortDestType)))
+                {
+                    fclogf(FLL(FCDEVICE3), &fax, 
+                           "Unknown mime-type (DESTLANG) %s", DeliveryLanguage.chars());
+                    break;
+                }
+
+            if (strlen(szShortDestType) < 1)
+                {
+                    fclogf(FLL(FCDEVICE3), &fax, 
+                           "No short name for mime-tpye (DESTLANG) %s in mime.types",
+                           DeliveryLanguage.chars());
+                    break;
+                }
+
+            if (strcmp(szShortDestType, szShortSourceType) == 0)
+                {
+                    fclogf(FLL(FCDEVICE3), &fax, 
+                           "SourceType(%s)==DestType(%s): No conversion required",
+                           szShortSourceType, szShortDestType);
+                    break;
+                }
+
+            /*
+            ** We understand both source and destination mime-types, and
+            ** they are not the same! Look for a converter.
+            */
+            char      szEnvName[50];
+            char      szConvertCmd[512];
+            const char  *pszTemp;
+
+            sprintf(szEnvName, "%s2%s", szShortSourceType, szShortDestType);
+            pszTemp = dev.GetEnv(szEnvName, NULL);
+            if (pszTemp == NULL)
+                {
+                    sprintf(szEnvName, "FC%s2%s_DEVICE", 
+                            szShortSourceType, szShortDestType);  // Backward compatible GE
+                    pszTemp = dev.GetEnv(szEnvName, NULL);
+                }
+
+            if (pszTemp != NULL)
+                {
+                    i = strlen(pszTemp);
+                    if (   (i == 0)                               // Empty string
+                           || (strncasecmp(pszTemp, "NONE", i) == 0) // NO or NONE
+                           || (i >= (int)sizeof(szConvertCmd))   )   // Oh come on!
+                        pszTemp = NULL;                           // No converter!
+                }
+
+            if (pszTemp == NULL)
+                {
+                    fclogf(FLL(FCDEVICE3), &fax, "No conversion from %s to %s",
+                           szShortSourceType, szShortDestType);
+                    break;
+                }
+        
+            /*
+            ** We have a converter for this ... Use it
+            */
+            strcpy(szConvertCmd, pszTemp);
+
+            fclogf(FLL(FCDEVICE3), &fax, "Convert from %s to %s",
+                   szShortSourceType, szShortDestType);
+
+            if ((strlen(szConvertCmd) + 64) < sizeof(szConvertCmd))
+                {
+                    /*
+                    ** Provide default parameters 
+                    */
+                    if (InflateArg(szConvertCmd, sizeof(szConvertCmd),
+                                   "#s", "%s", szWorkFileName.chars()) < 1)
+                        {
+                            strcat(szConvertCmd, " \"#s\" \"#d\"");
+                            InflateArg(szConvertCmd, sizeof(szConvertCmd),
+                                       "#s", "%s", szWorkFileName.chars());
+                        }
+                }
+            else
+                {
+                    InflateArg(szConvertCmd, sizeof(szConvertCmd),
+                               "#s", "%s", szWorkFileName.chars());
+                }
+
+            InflateArg(szConvertCmd, sizeof(szConvertCmd),
+                       "#d", "%s", szWorkFileName2.chars());
+
+            inflate(szConvertCmd, sizeof(szConvertCmd), szConvertCmd);
+
+            fclogf(FLL(FCDEVICE3), &fax, "Conversion Cmd:%s", szConvertCmd);
+
+            i = system(szConvertCmd);
+            if (i != 0)
+                {
+                    j = errno;
+                    fclogf(FLL(FCDEVICE1), &fax,
+                           "Conversion failed: %d, Errno=%d(%s)", i, j, strerror(j));
+
+                    fclogf(FLL(FCDEVICE1), &fax, "Conversion Cmd:%s", szConvertCmd);
+
+                    status.set((ErrorCodes)486, "Email Conversion Failed");
+                    return(status);
+                }
+
+            wrkfile = fopen(szWorkFileName2, "rb");
+            if (wrkfile == NULL)
+                {
+                    fclogf(FLL(FCDEVICE1), &fax, 
+                           "Conversion failed: %s not created", szWorkFileName2.chars());
+             
+                    fclogf(FLL(FCDEVICE1), &fax,
+                           "Conversion Cmd:%s", szConvertCmd);
+
+                    status.set((ErrorCodes)486, "Email: No converted file created");
+                    return(status);
+                }
+
+            fseek(wrkfile, 0, SEEK_END);
+            keyEOF = ftell(wrkfile);
+            if (keyEOF < 1)
+                {
+                    fclogf(FLL(FCDEVICE1), &fax, "Conversion failed: %s is empty",
+                           szWorkFileName2.chars());
+             
+                    fclogf(FLL(FCDEVICE1), &fax, "Conversion Cmd:%s", szConvertCmd);
+
+                    status.set((ErrorCodes)486, "Email: Converted file empty");
+                    return(status);
+                }
+
+            if (keyEOF < 100)
+                {
+                    fclogf(FLL(FCDEVICE1), &fax, 
+                           "WARNING: Conversion output < 100 bytes (%ld, %s)",
+                           keyEOF, szWorkFileName2.chars());
+             
+                    fclogf(FLL(FCDEVICE1), &fax, "Conversion Cmd:%s", szConvertCmd);
+                }
+            else
+                { 
+                    fclogf(FLL(FCDEVICE3), &fax, "Coverted output is %ld bytes", 
+                           keyEOF);
+                }
+
+            fclose(wrkfile);
+            unlink(szWorkFileName);                  // Remove original workfile
+            FileMV(szWorkFileName2, szWorkFileName); // Use this one instead
+            content_type = szNewContentType;         // We did a conversion ...
+
+            i = strlen(szShortDestType);
+            while(i > 0)
+                {
+                    i--; 
+                    szShortDestType[i] = tolower(szShortDestType[i]);
+                }
+
+            s1changeext(szAttachedName, sizeof(szAttachedName), szShortDestType);
+        
+        } 
+    while(0); // end DO ... trying document conversion
+
+
+    //
+    // Conversion done if needed. Re-open the workfile
+    wrkfile = fopen(szWorkFileName, "rb");
+    if (wrkfile == NULL)
+        {
+            fclogf(FLL(FCERROR), &fax, "Workfile disappeared");
+            status.set(InternalError, __FILE__, __LINE__, "Workfile Disappeared");
+            return(status);
+        }
+
+    // Get character set we need to encode the attachment name
+    const char* pszCharSet = dev.GetEnv("MAILPLUS_CHARSET", NULL);
+
+    // Get content disposition for mime attachments
+    const char* pszDisposition = dev.GetEnv("MAILPLUS_ATT_DISPOSITION", NULL);
+
+    // Headers for attachment
+    int iMaxSourceSize = 256;
+    int iMaxDestSize = (iMaxSourceSize/3)*4;
+    char szOutBuffer[iMaxDestSize];
+    memset(szOutBuffer, 0, sizeof(szOutBuffer));
+    unsigned char szTmp[iMaxSourceSize];
+    if (pszCharSet != NULL) 
+        {
+            strcpy((char *)szTmp, szAttachedName);
+            Base64Encode(szTmp, strlen((char *)szTmp), szOutBuffer, sizeof(szOutBuffer));
+            fprintf(outfile, "Content-Type: %s; name==?%s?B?%s?=\n",
+                    content_type.c_str(), pszCharSet, szOutBuffer);
+        }
+    else
+        {
+
+            fprintf(outfile, "Content-Type: %s; name=\"%s\"\n", 
+                    content_type.c_str(), szAttachedName);
+        }
+    fprintf(outfile, "Content-Transfer-Encoding: base64\n");
+
+    String sDisposition;
+    if (pszDisposition != NULL) {
+        sDisposition = pszDisposition;
+    } else {
+        sDisposition = "attachment";
+    }
+
+    if (pszCharSet != NULL)
+        {
+            strcpy((char *)szTmp, szAttachedName);
+            Base64Encode(szTmp, strlen((char *)szTmp), szOutBuffer, sizeof(szOutBuffer));
+            fprintf(outfile, "Content-Disposition: %s; filename==?%s?B?%s?=\n\n",
+                    sDisposition.chars(), pszCharSet, szOutBuffer);
+        }
+    else
+        {
+            fprintf(outfile, "Content-Disposition: %s; filename=\"%s\"\n\n",
+                    sDisposition.chars(), szAttachedName);
+        }
+
+    // Create MD5 digest header
+    digest = md5digest(wrkfile, &filesize);
+
+    //fprintf(outfile, "Content-MD5: %s\n\n", digest);
+    free(digest);
+
+    // Convert the attachment to base64 and append to outfile
+    to64(wrkfile, outfile, 0);
+    lastclose = ftell(outfile);
+
+    // We're done 
+    fclose(wrkfile);
+    DeleteFile(szWorkFileName);
+    return(status);
+}
+
+to encode the attachment name
+        const char* pszCharSet = dev.GetEnv("MAILPLUS_CHARSET", NULL);
+
+        // Get content disposition for mime attachments
+        const char* pszDisposition = dev.GetEnv("MAILPLUS_ATT_DISPOSITION", NULL);
+
+        // Headers for attachment
+        int iMaxSourceSize = 256;
+        int iMaxDestSize = (iMaxSourceSize/3)*4;
+        char szOutBuffer[iMaxDestSize];
+        memset(szOutBuffer, 0, sizeof(szOutBuffer));
+        unsigned char szTmp[iMaxSourceSize];
+        if (pszCharSet != NULL) 
+            {
+                strcpy((char *)szTmp, szAttachedName);
+                Base64Encode(szTmp, strlen((char *)szTmp), szOutBuffer, sizeof(szOutBuffer));
+                fprintf(outfile, "Content-Type: %s; name==?%s?B?%s?=\n",
+                        content_type.c_str(), pszCharSet, szOutBuffer);
+            }
+        else
+            {
+
+                fprintf(outfile, "Content-Type: %s; name=\"%s\"\n", 
+                        content_type.c_str(), szAttachedName);
+            }
+        fprintf(outfile, "Content-Transfer-Encoding: base64\n");
+
+        String sDisposition;
+        if (pszDisposition != NULL) {
+            sDisposition = pszDisposition;
+        } else {
+            sDisposition = "attachment";
+        }
+
+        if (pszCharSet != NULL)
+            {
+                strcpy((char *)szTmp, szAttachedName);
+                Base64Encode(szTmp, strlen((char *)szTmp), szOutBuffer, sizeof(szOutBuffer));
+                fprintf(outfile, "Content-Disposition: %s; filename==?%s?B?%s?=\n\n",
+                        sDisposition.chars(), pszCharSet, szOutBuffer);
+            }
+        else
+            {
+                fprintf(outfile, "Content-Disposition: %s; filename=\"%s\"\n\n",
+                        sDisposition.chars(), szAttachedName);
+            }
+
+        // Create MD5 digest header
+        digest = md5digest(wrkfile, &filesize);
+
+        //fprintf(outfile, "Content-MD5: %s\n\n", digest);
+        free(digest);
+
+        // Convert the attachment to base64 and append to outfile
+        to64(wrkfile, outfile, 0);
+        lastclose = ftell(outfile);
+
+        // We're done 
+        fclose(wrkfile);
+        DeleteFile(szWorkFileName);
+        return(status);
+    }
+
+}

@@ -1,0 +1,38 @@
+Jul 8, 2013 
+
+< B2663:
+  - ChangeRequests: Syntax for Call to fcjTime.jar is Incorrect for Java Version 7.
+< B2677:
+  - ChangeRequests: Upgrade from a version lower than 7.8.00 fails if Work Order doctype does not exist.
+    Spent most of the day trying to figure out the installation process of AXOC.
+
+Jul 9, 2013 
+
+< B2677:
+  - ChangeRequests: Upgrade from a version lower than 7.8.00 fails if Work Order doctype does not exist.
+    
+    Tried to reproduce with the 7.8 to 7.9 upgrade. Upgraded completed with no errors.
+    Found that Work Order was included first in AXOC 6.1. 
+    Tried to reproduce with the 6.0 to 7.8 upgrade. Upgrade completed with no errors.
+    Aquired an input from Ted. Based on his input, next step installing AXOC 5.4 upgrading to 6.4 to 7.9.
+
+< B2966:
+  - ChangeRequests: AYOD attachment query validation does not filter on :ENTITY.
+
+< AXOC Document Attachment Training with Brent.
+
+< B2663:
+  - ChangeRequests: Syntax for Call to fcjTime.jar is Incorrect for Java Version 7. Corrected the
+  syntax and added it to the AXOC branch v8-2-01_branch_srki 
+
+Jul 10, 2013 
+ 
+< B2677:
+  - Installed AXOC 5.4, confirmed that Work Order doctype not present, upgraded to 6.4 and found
+  that Work Order doctype was added as expected. 
+  
+  - As I've expected the upgrade from 6.4 to 7.9 finished with no errors. I will still try to add
+    defensive code against the missing Work Order condition.
+
+
+

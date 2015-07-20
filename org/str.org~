@@ -1,0 +1,133 @@
+
+* Jul 8, 2013
+--------------------
+
+** B2663:
+*** Syntax for Call to fcjTime.jar is Incorrect for Java Version 7.
+    - Spent time looking into the issue of fcjTime.jar syntax issue. Initial bug
+      submitted by Ted was only for 64bit AIX, however, I've discovered that
+      this holds for any OS that runs jre7.
+
+** B2677:
+*** Upgrade from a version lower than 7.8.00 fails if Work Order doctype does not exist.
+    - Spent most of the day trying to figure out the installation process of
+      AXOC.
+
+
+* Jul 9, 2013
+--------------------
+
+** B2677:
+*** Upgrade from a version lower than 7.8.00 fails if Work Order doctype does not exist.
+    - Tried to reproduce with the 7.8 to 7.9 upgrade. Upgraded completed with no
+      errors.    
+    - Found that Work Order was included first in AXOC 6.1.
+    - Tried to reproduce with the 6.0 to 7.8 upgrade. Upgrade completed with no
+      errors.
+    - Acquired an input from Ted. Based on his input, next step installing AXOC
+      5.4 upgrading to 6.4 to 7.9.
+
+** AXOC Document Attachment Training with Brent.
+   - Brent did a lecture on attachments and how do we query database for needed
+     information.
+
+** B2966:
+*** AYOD attachment query validation does not filter on :ENTITY.
+    - Played around with the form builder.
+
+** B2663:
+*** Syntax for Call to fcjTime.jar is Incorrect for Java
+    - Version 7. Corrected the syntax and added it to the AXOC branch
+      v8-2-01_branch_srki
+
+
+* Jul 10, 2013 
+--------------------
+
+** B2677:
+*** Upgrade from a version lower than 7.8.00 fails if Work Order doctype does not exist.
+  - Installed AXOC 5.4, confirmed that Work Order doctype not present, upgraded
+    to 6.4 and found that Work Order doctype was added as expected.
+  - As I've expected the upgrade from 6.4 to 7.9 finished with no errors. I will
+    still try to add defensive code against the missing Work Order condition.
+  - I got emacs24 on vm-dev-lx compiled and got emacs env setup for development.
+
+
+* Jul 11, 2013 
+--------------------
+
+** B2966:
+*** AYOD attachment query validation does not filter on :ENTITY.
+    - Located the script files that contain the functions called by validate
+      query form. They are in the ins/ directory of the AXOC source tree.
+    - Located exact file and function: ~/src/oa_new/ins/aoocayod.proc.c.sh
+    - There appear to be two functions - AssembleAttInfoVQuery and
+      AssembleAttInfoQuery, the former one is suggested to be called when
+      validating because we don't have an entity. The AssembleAttInfoQuery
+      has :ENTITY included in the query.
+    - Reinstalled AXOC due to some errors when running EBS. 
+
+** Team Rap Meeting
+   - Talked about projecting the weight of the Small projects. Every Thursday
+     we'll be giving an input based on our perception of the project weight to
+     better access the total effort QA/Development.
+
+
+* Jul 12, 2013
+--------------------
+
+** Working on fixing the EBS issue. Apps wouldn't start up.
+   CLOCK: [2013-07-12 Fri 08:15]--[2013-07-12 Fri 11:13] =>  2:58
+   - The applmgr start.sh script was failing with an error: Couldn't connect to
+     the database. DB not running or user/pass incorrect. 
+   - Check the start.sh script, within another script called and apps/apps
+     user/pass combo is passed. 
+   - I've tried connecting to the database manually using apps/apps and got an
+     ORA-28000 error "Account locked". Used system user to unlocked account and
+     repeated the process. 
+   - start.sh failed again. This time I've concluded that something in start.sh
+     process locks the account.
+   - Managed to pass the start.sh error, however, I'm getting Exception on the
+     EBS login page. oracle.apps.fnd.cache.CacheException, Caused by:
+     oracle.apps.jtf.base.resources.FrameworkException: Error in IAS Cache:
+     java.lang.NullPointerException: null Connection
+   - I've pretty much hit a dead end on this.
+   
+     
+* Jun 15, 2013 
+---------------------
+
+** DONE Outline build AXUX presentation
+   CLOSED: [2013-07-15 Mon 08:27]
+*** The build "script" consist out of three different parts.
+    1. The run.sh
+       - Get the input from the user.
+       - Manipulate master script using sed. 
+       - Run ftp_build_script and upload master script to each build host.
+       - Fire up gnome-terminal with 5 tabs (one for each host) set title and
+         run scripts to initiate telnet session. 
+    2. The master script build_axux.sh. 
+       - Check for .cvsrc and m script. Remove aventx source directory if
+         exist. Pull source from CVS tree, tag the source, change directory and
+         start compiling.
+       - In case that anything fails, send email alert.
+    3. The ftp_build_script.sh.
+       - This script upload master build script to each build host.
+    4. The connector scripts o_hostname.
+       - Connector scripts are the expect scripts responsible for creating
+         telnet session with build hosts. 
+
+** TODO Changes to be made on the build "script" <2013-07-15 Mon>
+*** TODO Create the build directory in format 'date_aventx'.
+*** TODO Clean up after the build is done.
+*** TODO Check if DEBUG is set in m script.
+*** TODO Pull the source using TAG instead of tagging.
+
+** B2966:
+*** AYOD attachment query validation does not filter on :ENTITY.
+    - Using wolfmanr12. We were not able to recover vm-ebs-12-4
+    - Set up the debugger, installed/decrypted aoocayod.proc.c.sh script.
+    - Running the debugger. 
+
+
+
