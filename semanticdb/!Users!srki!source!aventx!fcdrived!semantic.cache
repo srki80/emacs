@@ -1,0 +1,570 @@
+;; Object fcdrived/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "fcdrived/"
+  :tables
+  (list
+    (semanticdb-table "fdintrfc.cc"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("fdintrfc.h" include nil nil [614 635])
+            ("strlog.h" include nil nil [636 655])
+            ("misc.h" include nil nil [656 673])
+            ("fax.h" include nil nil [674 690])
+            ("String.FaxJob.AVLMap.h" include nil nil [691 724])
+            ("unistd.h" include (:system-flag t) nil [726 745])
+            ("stdlib.h" include (:system-flag t) nil [746 765])
+            ("string.h" include (:system-flag t) nil [766 785])
+            ("ctype.h" include (:system-flag t) nil [787 805])
+            ("errno.h" include (:system-flag t) nil [806 824])
+            ("fcntl.h" include (:system-flag t) nil [825 843])
+            ("netdb.h" include (:system-flag t) nil [844 862])
+            ("openssl/ssl.h" include (:system-flag t) nil [863 887])
+            ("openssl/err.h" include (:system-flag t) nil [888 912])
+            ("phonenum.h" include nil nil [915 936])
+            ("config.h" include nil nil [937 956])
+            ("errorcod.h" include nil nil [957 978])
+            ("fanywhere.h" include nil nil [979 1001])
+            ("faxcom.h" include nil nil [1002 1021])
+            ("faxdrvd.h" include nil nil [1022 1042])
+            ("faxinque.h" include nil nil [1043 1064])
+            ("faxjob.h" include nil nil [1065 1084])
+            ("grphclst.h" include nil nil [1085 1106])
+            ("phonelin.h" include nil nil [1107 1128])
+            ("port.h" include nil nil [1129 1146])
+            ("servrlst.h" include nil nil [1147 1168])
+            ("strlog.h" include nil nil [1169 1188])
+            ("tcpip.h" include nil nil [1189 1207])
+            ("fileutil.h" include nil nil [1208 1229])
+            ("s1parse.h" include nil nil [1230 1250])
+            ("faxdttm.h" include nil nil [1251 1271])
+            ("faxdev.h" include nil nil [1272 1291])
+            ("ipc.h" include nil nil [1292 1308])
+            ("misc.h" include nil nil [1309 1326])
+            ("sys/types.h" include (:system-flag t) nil [1327 1349])
+            ("sys/stat.h" include (:system-flag t) nil [1350 1371])
+            ("jobtable" variable
+               (:typemodifiers ("extern")
+                :type ("JobList" type (:type "class") nil nil))
+                nil [1373 1397])
+            ("DestroyJob" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("job" variable
+                       (:reference 1
+                        :type ("FaxJob" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1507 1519]))                  
+                :type "void")
+                nil [1478 1727])
+            ("ServerType" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1839 1844]))                  
+                :type ("cfgSV" type (:type "class") nil nil))
+                nil [1808 1880])
+            ("ServerName" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1993 1998]))                  
+                :type ("String" type (:type "class") nil nil))
+                nil [1961 2039])
+            ("gSet" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("name" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("String" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2144 2163]))                  
+                :type "void")
+                nil [2120 2304])
+            ("gOff" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("name" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("String" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2409 2428]))                  
+                :type "void")
+                nil [2385 2583])
+            ("fcdial" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("pszPhone" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2918 2933])
+                    ("n" variable (:type "int") (reparse-symbol arg-sub-list) [2934 2940])
+                    ("pFax" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Fax" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2941 2957]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [2888 5596])
+            ("QueryGraphics" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("pszMask" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5715 5735]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [5678 6104])
+            ("RetrieveGraphic" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("graphic" variable (:type ("GraphicList::Graphic" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6224 6254]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [6185 6531])
+            ("SetWorkFile" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("wf" variable
+                       (:pointer 1
+                        :type ("WorkFile" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [6642 6655]))                  
+                :type "void")
+                nil [6612 6680])
+            ("FaxPrepStart" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("fileOut" variable
+                       (:pointer 1
+                        :type ("WorkFile" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [6792 6810]))                  
+                :type "void")
+                nil [6761 6888])
+            ("FDInterface" function
+               (:constructor-flag t
+                :parent "FDInterface"
+                :arguments 
+                  ( ("devIn" variable
+                       (:reference 1
+                        :type ("FaxDevDriver" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7003 7023])
+                    ("svtype" variable (:type ("cfgSV" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7024 7037]))                  
+                :type ("FDInterface" type (:type "class") nil nil))
+                nil [6978 7410])
+            ("RXFax" function
+               (:parent "FDInterface"
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [7493 7639])
+            ("UpdateJobStatus" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("jobname" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("String" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7760 7782]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [7721 8196])
+            ("FindFaxInJob" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("faxid" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8308 8326]))                  
+                :type ("Pix" type (:type "class") nil nil))
+                nil [8278 9158])
+            ("ForceKillJob" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("jobname" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("String" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9276 9298])
+                    ("pszCancelFaxId" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [9301 9328])
+                    ("bDeleteReq" variable (:type ("BOOL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9329 9345]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [9240 9718])
+            ("ForceClassifySuccess" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("jobname" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("String" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9843 9865])
+                    ("pszCancelFaxId" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [9868 9895])
+                    ("bDeleteReq" variable (:type ("BOOL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9896 9912]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [9799 10293])
+            ("ForceClassifyFatal" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("jobname" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("String" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10416 10438])
+                    ("pszCancelFaxId" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [10441 10468])
+                    ("bDeleteReq" variable (:type ("BOOL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10469 10485]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [10374 10866])
+            ("ReQueryFax" function
+               (:parent "FDInterface"
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [10947 11134])
+            ("ForceReQueryFax" function
+               (:parent "FDInterface"
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [11215 11471])
+            ("ClassifySuccess" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("faxid" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [11591 11609])
+                    ("deleterequest" variable (:type ("BOOL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11610 11629]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [11552 14415])
+            ("ClassifyFatal" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("faxid" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [14533 14551])
+                    ("deleterequest" variable (:type ("BOOL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [14552 14571]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [14496 17353])
+            ("CancelFax" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("faxid" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [17466 17484])
+                    ("deleterequest" variable (:type ("BOOL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [17485 17504]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [17433 20267])
+            ("FDInterface" function
+               (:destructor-flag t
+                :parent "FDInterface"
+                :type "void")
+                nil [20351 20514])
+            ("DownloadLCRTable" function
+               (:parent "FDInterface"
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [20718 20947])
+            ("HasLCRTable" function
+               (:parent "FDInterface"
+                :type ("BOOL" type (:type "class") nil nil))
+                nil [21065 21254])
+            ("MasterProcessTimeout" function
+               (:parent "FDInterface"
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [21541 23460])
+            ("MasterInitialize" function
+               (:parent "FDInterface"
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [24027 25201])
+            ("MasterShutdownWait" function
+               (:parent "FDInterface"
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [25487 25752])
+            ("MasterShutdownNow" function
+               (:parent "FDInterface"
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [25754 26015])
+            ("DidServersChange" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("oOldServers" variable
+                       (:reference 1
+                        :type ("clsDevServers" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [26465 26492])
+                    ("oNewServers" variable
+                       (:reference 1
+                        :type ("clsDevServers" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [26492 26519]))                  
+                :type "bool")
+                nil [26430 27902])
+            ("DoRefreshLCRTable" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("bCreateDrivers" variable (:type "bool") (reparse-symbol arg-sub-list) [28536 28556]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [28495 30084])
+            ("DeleteCurrentServers" function
+               (:parent "FDInterface"
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [30374 31773])
+            ("ChangeChildrenState" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("bEnable" variable (:type "bool") (reparse-symbol arg-sub-list) [31972 31985])
+                    ("state" variable (:type ("cfgDNBY" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [31985 31999])
+                    ("InStatus" variable (:type ("ErrorCode" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [31999 32018]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [31929 33974])
+            ("CreateServers" function
+               (:parent "FDInterface"
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [34356 35559])
+            ("ShutdownServers" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("bShutdownNow" variable (:type ("BOOL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [35814 35832]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [35775 36129])
+            ("RemoveUnusedServers" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("iNumServers" variable (:type "int") (reparse-symbol arg-sub-list) [36175 36191])
+                    ("iMasterNumber" variable (:type "int") (reparse-symbol arg-sub-list) [36191 36209]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [36132 37291])
+            ("CreateServer" function
+               (:parent "FDInterface"
+                :arguments 
+                  ( ("pServer" variable
+                       (:pointer 1
+                        :type ("clsDevServer" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [38029 38051])
+                    ("szChildName" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [38051 38075]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [37993 41221])
+            ("GetChildDevicePrefix" function
+               (:parent "FDInterface"
+                :type ("String" type (:type "class") nil nil))
+                nil [41223 41871]))          
+      :file "fdintrfc.cc"
+      :pointmax 41878
+      :fsize 41877
+      :lastmodtime '(21916 31280 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "email.cc"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("string" include (:system-flag t) nil [497 514])
+            ("unistd.h" include (:system-flag t) nil [515 534])
+            ("stdio.h" include (:system-flag t) nil [535 553])
+            ("stdlib.h" include (:system-flag t) nil [554 573])
+            ("string.h" include (:system-flag t) nil [574 593])
+            ("ctype.h" include (:system-flag t) nil [595 613])
+            ("errno.h" include (:system-flag t) nil [614 632])
+            ("fcntl.h" include (:system-flag t) nil [633 651])
+            ("sys/types.h" include (:system-flag t) nil [652 674])
+            ("sys/wait.h" include (:system-flag t) nil [675 696])
+            ("sys/stat.h" include (:system-flag t) nil [697 718])
+            ("sysexits.h" include (:system-flag t) nil [737 758])
+            ("strlog.h" include nil nil [767 786])
+            ("phonenum.h" include nil nil [787 808])
+            ("config.h" include nil nil [809 828])
+            ("errorcod.h" include nil nil [829 850])
+            ("email.h" include nil nil [851 869])
+            ("faxcom.h" include nil nil [870 889])
+            ("faxdrvd.h" include nil nil [890 910])
+            ("faxinque.h" include nil nil [911 932])
+            ("faxjob.h" include nil nil [933 952])
+            ("grphclst.h" include nil nil [953 974])
+            ("phonelin.h" include nil nil [975 996])
+            ("port.h" include nil nil [997 1014])
+            ("servrlst.h" include nil nil [1015 1036])
+            ("tcpip.h" include nil nil [1037 1055])
+            ("fileutil.h" include nil nil [1056 1077])
+            ("misc.h" include nil nil [1078 1095])
+            ("strxtrct.h" include nil nil [1096 1117])
+            ("mime.h" include nil nil [1118 1135])
+            ("s1files.h" include nil nil [1136 1156])
+            ("ipc.h" include nil nil [1157 1173])
+            ("sendmail.h" include nil nil [1174 1195])
+            ("md5digest" function
+               (:type "char"
+                :arguments 
+                  ( ("infile" variable
+                       (:pointer 1
+                        :type ("FILE" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1232 1245])
+                    ("len" variable
+                       (:pointer 1
+                        :type "long")
+                        (reparse-symbol arg-sub-list) [1246 1256]))                  
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :pointer 1
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [1209 1257])
+            ("to64" function
+               (:type "int"
+                :arguments 
+                  ( ("infile" variable
+                       (:pointer 1
+                        :type ("FILE" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1290 1303])
+                    ("outfile" variable
+                       (:pointer 1
+                        :type ("FILE" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1304 1318])
+                    ("limit" variable (:type "long") (reparse-symbol arg-sub-list) [1319 1330]))                  
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [1272 1331])
+            ("os_genid" function
+               (:type "char"
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :pointer 1
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [1346 1370])
+            ("Email" function
+               (:constructor-flag t
+                :parent "Email"
+                :arguments 
+                  ( ("dev" variable
+                       (:reference 1
+                        :type ("FaxDevDriver" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1542 1560])
+                    ("svtype" variable (:type ("cfgSV" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1561 1574])
+                    ("socket" variable (:type "int") (reparse-symbol arg-sub-list) [1575 1586]))                  
+                :type ("Email" type (:type "class") nil nil))
+                nil [1529 1621])
+            ("Email" function
+               (:destructor-flag t
+                :parent "Email"
+                :type "void")
+                nil [1623 1663])
+            ("Nprint" function
+               (:parent "Email"
+                :arguments 
+                  ( ("faxid" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1913 1931]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [1889 2169])
+            ("CancelFax" function
+               (:parent "Email"
+                :arguments 
+                  ( ("faxid" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2432 2450])
+                    ("deleterequest" variable (:type ("BOOL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2451 2470]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [2405 2729])
+            ("CheckActiveFaxes" function
+               (:parent "Email"
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [2993 3075])
+            ("DeleteGraphic" function
+               (:parent "Email"
+                :arguments 
+                  ( ("graphic" variable (:type ("GraphicList::Graphic" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3358 3387]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [3327 3635])
+            ("DownloadGraphic" function
+               (:parent "Email"
+                :arguments 
+                  ( ("graphic" variable (:type ("GraphicList::Graphic" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3924 3953]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [3891 4140])
+            ("Reset" function
+               (:parent "Email"
+                :arguments 
+                  ( ("n20Seconds" variable (:type "int") (reparse-symbol arg-sub-list) [4410 4425]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [4387 4507])
+            ("CreateMimeSegment" function
+               (:parent "Email"
+                :arguments 
+                  ( ("jobname" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4958 4978])
+                    ("fax" variable
+                       (:reference 1
+                        :type ("FaxInQueue" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4979 4995])
+                    ("outfile" variable
+                       (:pointer 1
+                        :type ("FILE" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5031 5051])
+                    ("filepos" variable (:type ("S1DISKKEY" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5053 5071])
+                    ("infile" variable
+                       (:pointer 1
+                        :type ("FILE" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5072 5085])
+                    ("psLine" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5086 5099])
+                    ("lastclose" variable
+                       (:reference 1
+                        :type "long")
+                        (reparse-symbol arg-sub-list) [5136 5158])
+                    ("pszAttachName" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5159 5185]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [4923 17947])
+            ("Transmit" function
+               (:parent "Email"
+                :arguments 
+                  ( ("jobname" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18281 18301]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [18255 43959])
+            ("Verify" function
+               (:parent "Email"
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [43967 45230])
+            ("CloseLink" function
+               (:parent "Email"
+                :arguments 
+                  ( ("bShutdown" variable (:type "int") (reparse-symbol arg-sub-list) [45263 45277]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [45236 45323])
+            ("OpenLink" function
+               (:parent "Email"
+                :arguments 
+                  ( ("bInit" variable (:type "int") (reparse-symbol arg-sub-list) [45351 45361]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [45325 45410])
+            ("SignalAbort" function
+               (:parent "Email"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [45514 45519]))                  
+                :type "void")
+                nil [45490 45544]))          
+      :file "email.cc"
+      :pointmax 45552
+      :fsize 45551
+      :lastmodtime '(21946 56804 0 0)
+      :unmatched-syntax nil))
+  :file "!Users!srki!source!aventx!fcdrived!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

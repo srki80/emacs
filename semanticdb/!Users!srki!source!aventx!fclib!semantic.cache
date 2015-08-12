@@ -1,0 +1,193 @@
+;; Object fclib/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "fclib/"
+  :tables
+  (list
+    (semanticdb-table "faxqueue.cc"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("string.h" include (:system-flag t) nil [429 448])
+            ("time.h" include (:system-flag t) nil [449 466])
+            ("fax.h" include nil nil [468 484])
+            ("newfax.h" include nil nil [485 504])
+            ("faxtable.h" include nil nil [505 526])
+            ("fxtable.h" include nil nil [527 547])
+            ("faxlist.h" include nil nil [548 568])
+            ("faxinlst.h" include nil nil [569 590])
+            ("faxinque.h" include nil nil [591 612])
+            ("faxqueue.h" include nil nil [613 634])
+            ("fileutil.h" include nil nil [635 656])
+            ("faxdttm.h" include nil nil [657 677])
+            ("strlog.h" include nil nil [678 697])
+            ("config.h" include nil nil [698 717])
+            ("ipc.h" include nil nil [718 734])
+            ("misc.h" include nil nil [735 752])
+            ("ackfile.h" include nil nil [753 773])
+            ("phonenum.h" include nil nil [774 795])
+            ("chkstats.h" include nil nil [796 817])
+            ("GetFax" function
+               (:parent "FaxQueue"
+                :arguments 
+                  ( ("fax" variable
+                       (:reference 1
+                        :type ("FaxInQueue" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [847 863])
+                    ("sFaxKey" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("String" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [864 886]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [819 2498])
+            ("Recover" function
+               (:parent "FaxQueue"
+                :arguments 
+                  ( ("szServerName" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2607 2632]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [2578 6939])
+            ("ResubmitQueryFax" function
+               (:parent "FaxQueue"
+                :arguments 
+                  ( ("_fax" variable
+                       (:reference 1
+                        :type ("FaxInList" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7057 7073])
+                    ("iDocSrc" variable (:type ("cfgDS" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7074 7088]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [7019 8117])
+            ("ResubmitFax" function
+               (:parent "FaxQueue"
+                :arguments 
+                  ( ("_fax" variable
+                       (:reference 1
+                        :type ("FaxInList" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8230 8246])
+                    ("iDocSrc" variable (:type ("cfgDS" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8247 8261])
+                    ("fHold" variable (:type ("BOOL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8266 8277])
+                    ("fCopy" variable (:type ("BOOL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8278 8289]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [8197 11972])
+            ("SubmitFax" function
+               (:parent "FaxQueue"
+                :arguments 
+                  ( ("fax" variable
+                       (:reference 1
+                        :type ("NewFax" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [12154 12166])
+                    ("iDocSrc" variable (:type ("cfgDS" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12167 12181])
+                    ("szLogon" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [12185 12205])
+                    ("aInfo" variable
+                       (:pointer 1
+                        :type ("AttachInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [12206 12224])
+                    ("fHold" variable (:type ("BOOL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12225 12236])
+                    ("bCALLCHECKQUEUE" variable (:type ("BOOL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12237 12258]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [12123 27728])
+            ("WakeUp" function
+               (:parent "FaxQueue"
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [27873 28629])
+            ("WakeUpQueryState" function
+               (:parent "FaxQueue"
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [28719 30198])
+            ("GetNextFax" function
+               (:parent "FaxQueue"
+                :arguments 
+                  ( ("fax" variable
+                       (:reference 1
+                        :type ("FaxInQueue" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [30311 30327]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [30279 32216])
+            ("IgnorePhoneMatch" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:reference 1
+                        :type ("FaxDev" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [32329 32341]))                  
+                :type ("boolean" type (:type "class") nil nil))
+                nil [32297 32921])
+            ("CheckForFaxesForThisDevice" function
+               (:parent "FaxQueue"
+                :arguments 
+                  ( ("dev" variable
+                       (:reference 1
+                        :type ("FaxDev" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [33259 33271])
+                    ("type" variable (:type ("cfgDEST_TYPE" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [33271 33289]))                  
+                :type "bool")
+                nil [33217 36499])
+            ("CheckPhoneInUse" function
+               (:parent "FaxQueue"
+                :arguments 
+                  ( ("fax" variable
+                       (:reference 1
+                        :type ("FaxInQueue" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [36678 36694])
+                    ("dev" variable
+                       (:reference 1
+                        :type ("FaxDev" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [36695 36707])
+                    ("phone_match" variable
+                       (:reference 1
+                        :type "bool")
+                        (reparse-symbol arg-sub-list) [36707 36725]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [36642 41341])
+            ("GetNextFax" function
+               (:parent "FaxQueue"
+                :arguments 
+                  ( ("server" variable
+                       (:reference 1
+                        :type ("Server" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [41521 41536])
+                    ("BLlist" variable
+                       (:reference 1
+                        :type ("BusyList" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [41536 41553])
+                    ("fax" variable
+                       (:reference 1
+                        :type ("FaxInQueue" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [41553 41569])
+                    ("toSrv" variable
+                       (:reference 1
+                        :type ("Server" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [41570 41584])
+                    ("bDoubleload" variable (:type ("BOOL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [41585 41602]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [41490 52445])
+            ("GetNextFax" function
+               (:parent "FaxQueue"
+                :arguments 
+                  ( ("fax" variable
+                       (:reference 1
+                        :type ("FaxInQueue" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [52560 52576])
+                    ("group" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("FaxInQueue" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [52577 52601])
+                    ("ipgs" variable (:type "int") (reparse-symbol arg-sub-list) [52635 52644]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [52528 55469])
+            ("status" variable (:type "int") nil [55460 55467]))          
+      :file "faxqueue.cc"
+      :pointmax 55471
+      :fsize 55470
+      :lastmodtime '(21946 56671 0 0)
+      :unmatched-syntax nil))
+  :file "!Users!srki!source!aventx!fclib!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

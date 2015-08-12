@@ -1,0 +1,126 @@
+;; Object fcschedd/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "fcschedd/"
+  :tables
+  (list
+    (semanticdb-table "fcschedd.cc"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("codes.h" include nil nil [420 438])
+            ("fstream" include (:system-flag t) nil [439 457])
+            ("string" include (:system-flag t) nil [458 475])
+            ("fnmatch.h" include (:system-flag t) nil [476 496])
+            ("signal.h" include (:system-flag t) nil [497 516])
+            ("unistd.h" include (:system-flag t) nil [517 536])
+            ("stdlib.h" include (:system-flag t) nil [537 556])
+            ("dirent.h" include (:system-flag t) nil [557 576])
+            ("stdio.h" include (:system-flag t) nil [577 595])
+            ("Args.h" include (:system-flag t) nil [596 613])
+            ("sys/stat.h" include (:system-flag t) nil [614 635])
+            ("fcver.h" include nil nil [637 655])
+            ("config.h" include nil nil [656 675])
+            ("daemon.h" include nil nil [676 695])
+            ("faxdttm.h" include nil nil [696 716])
+            ("faxqueue.h" include nil nil [717 738])
+            ("faxrpt.h" include nil nil [739 758])
+            ("grphclst.h" include nil nil [759 780])
+            ("ipc.h" include nil nil [781 797])
+            ("progmsg.h" include nil nil [798 818])
+            ("servrlst.h" include nil nil [819 840])
+            ("startup.h" include nil nil [841 861])
+            ("strlog.h" include nil nil [862 881])
+            ("purgefax.h" include nil nil [882 903])
+            ("parsefax.h" include nil nil [904 925])
+            ("fileutil.h" include nil nil [926 947])
+            ("fchome.h" include nil nil [948 967])
+            ("misc.h" include nil nil [968 985])
+            ("phonenum.h" include nil nil [986 1007])
+            ("autoctor.h" include nil nil [1008 1029])
+            ("busylist.h" include nil nil [1030 1051])
+            ("countfax.h" include nil nil [1053 1074])
+            ("MAX_LINE" variable (:constant-flag t) nil [1084 1092])
+            ("MAX_PATH" variable (:constant-flag t) nil [1106 1114])
+            ("FAXID_LENGTH" variable (:constant-flag t) nil [1127 1139])
+            ("faxcntrl_abort_detected" variable
+               (:typemodifiers ("static")
+                :default-value "FALSE"
+                :type "int")
+                nil [1143 1186])
+            ("time_to_shutdown" variable
+               (:typemodifiers ("static")
+                :default-value "FALSE"
+                :type "int")
+                nil [1187 1223])
+            ("bWaitForDriversToShutdown" variable
+               (:typemodifiers ("static")
+                :default-value "false"
+                :type "bool")
+                nil [1224 1270])
+            ("bReQueried" variable
+               (:default-value "FALSE"
+                :type ("BOOL" type (:type "class") nil nil))
+                nil [1272 1296])
+            ("Create_Reports" function
+               (:prototype-flag t
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [1298 1325])
+            ("Process_Timeout" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("BLlist" variable
+                       (:reference 1
+                        :type ("BusyList" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1352 1369]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [1326 1370])
+            ("Verify_Faxcntrl_Pid" function
+               (:prototype-flag t
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [1371 1403])
+            ("Signal_Receive" function
+               (:prototype-flag t
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [1404 1431])
+            ("_Version" function
+               (:parent "Config"
+                :type ("String" type (:type "class") nil nil))
+                nil [1458 1524])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [1536 1545])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1546 1559]))                  
+                :type "int")
+                nil [1527 33431])
+            ("PurgeFaxList" function
+               (:typemodifiers ("static")
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [33433 36384])
+            ("Create_Reports" function (:type ("ErrorCode" type (:type "class") nil nil)) nil [36466 43104])
+            ("Process_Timeout" function
+               (:arguments 
+                  ( ("BLlist" variable
+                       (:reference 1
+                        :type ("BusyList" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [43211 43228]))                  
+                :type ("ErrorCode" type (:type "class") nil nil))
+                nil [43185 57988])
+            ("Verify_Faxcntrl_Pid" function (:type ("ErrorCode" type (:type "class") nil nil)) nil [57990 59466])
+            ("Signal_Receive" function (:type ("ErrorCode" type (:type "class") nil nil)) nil [59468 60008]))          
+      :file "fcschedd.cc"
+      :pointmax 60009
+      :fsize 60009
+      :lastmodtime '(21941 5007 0 0)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("MAX_LINE" . ((number "1024" 1093 . 1097)))
+          ("FAXID_LENGTH" . ((number "8" 1140 . 1141)))
+          ("MAX_PATH" . ((number "256" 1115 . 1118)))
+          )
+))
+  :file "!Users!srki!source!aventx!fcschedd!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

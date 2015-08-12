@@ -1,0 +1,45 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/Users/srki/" . ".emacs.d/")
+ ("/Users/srki/source/aventx/" . "fcdrived/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/Users/srki/source/aventx/fcdrived/"
+ "/Users/srki/source/aventx/fcschedd/"
+ "/Users/srki/source/aventx/fclib/"
+ "/Users/srki/.emacs.d/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "email.cc"
+ "fcschedd.cc"
+ "faxqueue.cc"
+ "fdintrfc.cc"
+ "init.el"
+ "README.md"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/Users/srki/source/aventx/fclib/" (21946 56671 0 0) "zipfax.cc" "workfile.cc" "wakefax.cc" "versionhardwaredevice.cc" "usrprmpt.cc" "tmpkey.cc" "tcpip.cc" "strscandir.cc" "strlog.cc" "String.List.cc" "String.FaxJob.Map.cc" "String.FaxJob.AVLMap.cc" "startup.cc" "servrlst.cc" "server.cc" "sendmail.cc" "rptargs.cc" "resqueue.cc" "rescodes.cc" "rescdlst.cc" "refreshlcrtabledevice.cc" "refreshlcrtable.cc" "recipint.cc" "purgerw.cc" "purgefax.cc" "pToken.List.cc" "progmsg.cc" "profile.cc" "pPlaceToken.List.cc" "port.cc" "phonelin.cc" "phonebok.cc" "parseutl.cc" "parsefax.cc" "parseerr.cc" "parsecom.cc" "parseasm.cc" "pager.cc" "newfax.cc" "misc.cc" "mime.cc" "Makefile" "liststatistics.cc" "JobEntry.List.cc" "ipc.cc" "grphclst.cc" "fileutil.cc" "fifo.cc" "faxtime.cc" "faxsvclst.cc" "faxsvc.cc" "faxrpt.cc" "faxqueue.cc" "faxlist.cc" "faxkey.cc" "faxjob.cc" "faxinque.cc" "faxinlst.cc" "faxdvlst.cc" "faxdttm.cc" "faxdev.cc" "faxdelta.cc" "faxdate.cc" "faxcfg.com" "fax.cc" "devLCR.cc" "devclang.cc" "custom.cc" "createcfg.cc" "countfax.cc" "config.cc" "busylist.cc" "attmrg.cc" "attchinf.cc" "ackfmt.doc" "ackfile.cc" ".cvsignore" "../" "./")
+
+ ("/Users/srki/source/aventx/fcschedd/" (21941 5663 0 0) "Makefile" "fcschedd.cc~" "fcschedd.cc" ".cvsignore" "../" "./")
+
+ ("/Users/srki/.emacs.d/" (21942 54155 0 0) "tramp" "themes/" "solarized.el" "semanticdb/" "README.rdoc" "README.md" "popup.elc" "popup.el" "org/" "init.el~" "init.el" "init - Copy.el" "ido.last~" "ido.last" "google-contacts.el.txt" "elpa/" "ede-projects.el" "diary" "bookmarks" "auto-save-list/" "ac-comphist.dat" ".git/" "%backup%~" "../" "./")
+
+ ("/Users/srki/" (21946 49005 0 0) "source/" "Public/" "Pictures/" "NetBeansProjects/" "Music/" "Movies/" "Library/" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "Applications/" ".zshrc-e" ".zshrc" ".zsh_history" ".zsh-update" ".zlogin" ".zcompdump-Srdjan’s MacBook Pro-5.0.5" ".zcompdump-macbookpro-5.0.5" ".zcompdump" ".vnc/" ".vimrc.org" ".vimrc" ".viminfo" ".vim.org/" ".vim/" ".Trash/" ".tmux.conf" ".tmux/" ".tigrc" ".stashconfig.yml" ".ssh/" ".sqldeveloper/" ".rvm/" ".psqlrc" ".profile" ".p2/" ".netbeans-derby/" ".mkshrc" ".m2/" ".lesshst" ".gitconfig" ".gemrc" ".gem/" ".emacs.d/" ".eclipse/" ".DS_Store" ".ctags" ".config/" ".CFUserTextEncoding" ".cache/" ".bashrc" ".bash_profile" ".bash_history" ".antigen.zsh" ".antigen/" ".ackrc" "../" "./")
+
+ ("/Users/srki/source/aventx/fcdrived/" (21940 9661 0 0) "xmlsubmissionfile.cc" "wirefasterrorlist.cc" "wirefast.cc" "str200.cc" "srvhdr.cc" "srvbridge.cc" "rightfax.cc" "rfedc.cc" "Makefile" "made" "fxdvdrvr.cc" "ftperrorlist.cc" "ftp.cc" "fnetmoves.cc" "fdintrfc.cc" "fcdrived.cc" "faxcom.cc" "fanywhere.cc" "f4000.cc" "f2001.cc" "email.cc" "bds.cc" "acktemplate.cc" ".cvsignore" "#wirefast.cc#" "../" "./")
+
+ ("/Users/srki/source/aventx/" (21940 13088 0 0) "winstall.mk" "utility/" "tests/" "test.mk" "srvtest/" "smtp/" "setup.mk" "s1lib/" "regenlic/" "recover/" "psparse/" "prxrund/" "prxdrvd/" "prxcomd/" "printctl/" "pbutil/" "orasync/" "netmoves/" "nbproject/" "man.rtf/" "Makefile" "makeconvert" "m_win" "m_sun10" "m_sun" "m_linux" "m_hpux" "m_cygwin" "m_alpha" "m_aix6" "m_aix" "install.mk" "INSTALL/" "include/" "hpuxia64_libs/" "gzip/" "genlice/" "fctr/" "fcstatus/" "fcsrv/" "fcschedd/" "fcscand/" "fcrm/" "fcpsextract/" "fcphonex/" "fcphone/" "fcpdfextract/" "fcmsgd/" "fcmgr/" "fcls/" "fclp/" "fclib/" "FCHOME/" "fcdrvprx/" "fcdrived/" "fccntrld/" "fcclean/" "fanylib/" "faircom/" "encode64/" "Doxyfile" "dbsgl/" "dblib/" "dbdump/" "datadict/" "CountryCodes.txt" "convert_xtdhdr/" "convert/" "conclient/" "commlib/" "clean.mk" "chklice/" "build_scripts/" "build.mk" "binupd.mk" "bdslib/" "AXWinService/" "autoctor" "aoocstat/" "aooclink/" "aooclib/" "aix6_libs/" ".git/" ".cvsignore" ".cproject" "../" "./")
+
+ ("/Users/srki/source/" (21936 14488 0 0) "ruby/" "RemoteSystemsTempFiles/" "rails/" "AventXPS/" "aventx/" ".recommenders/" ".metadata/" "../" "./")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t
