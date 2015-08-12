@@ -52,10 +52,10 @@
 (tool-bar-mode -1)
 
 ;; No menu-bar
-(menu-bar-mode -1)
+;(menu-bar-mode -1)
 
 ;; Set default font
-(set-default-font "Consolas-11")
+(set-default-font "Monaco-12")
 
 ;; Get rid of the butt ugly scrollbars in GUI
 (when (display-graphic-p) (set-scroll-bar-mode nil))
@@ -63,11 +63,6 @@
 ;; Theme
 ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 ;;(load-theme 'solarized t)
-
-;; Tabbar mode
-(add-to-list 'load-path "~/.emacs.d/tabbar-master")
-(require 'tabbar)
-(tabbar-mode t)
 
 ;; Highlight Current LinE
 (require 'hl-line)
@@ -96,24 +91,40 @@
 (global-set-key [(control tab)] `other-window)
 
 ;; Enable line numbers
-(add-to-list 'load-path "~/.emacs.d/linenum")
 (autoload 'linum-mode "linum" "toggle line numbers /on/off" t)
 (global-set-key (kbd "C-1") 'linum-mode)
+(require 'linum-relative)
 
 ;; Auto-complete
-(add-to-list 'load-path "~/.emacs.d/auto-complete")
+(require 'auto-complete)
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
+(defun my:ac-c-header-init()
+  (require 'auto-complete-c-headers)
+  (add-to-list 'ac-sources 'ac-source-c-headers)
+    (add-to-list 'achead:include-directories '"/Applications/Xcode.app/Contents\
+/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include")
+    )
+(add-hook 'c++-mode-hook 'my:ac-c-header-init)
+(add-hook 'c-mode-hook 'my:ac-c-header-init)
+
+;; Turn on Semantic
+(semantic-mode 1)
+(semantic-add-system-include "/home/srki/source/aventx/include")
+(defun my:add-semantic-to-autocomplete()
+  (add-to-list 'ac-sources 'ac-source-semantic))
+(add-hook 'c-mode-common-hook 'my:add-semantic-to-autocomplete)
+(global-ede-mode 1)
+(ede-cpp-root-project "aventx" :file "~/source/aventx/fcschedd/fcschedd.cc"
+                                    :include-path '("/../include"))
 
 ;; auto-pair the brackets, braces, parens.
-(add-to-list 'load-path "~/.emacs.d/autopair") ;; comment if autopair.el is in standard load path 
-   (require 'autopair)
-   (autopair-global-mode) ;; enable autopair in all buffers 
+(require 'autopair)
+(autopair-global-mode) ;; enable autopair in all buffers 
 
 ;; Yasnippet
-(add-to-list 'load-path "~/.emacs.d/yasnippet")
-(require 'yasnippet-bundle)
+;(require 'yasnippet)
+;(yas-global-mode 1)
 
 ;; Set UNIX encoding to default
 (set-default buffer-file-coding-system 'utf-8-unix)
@@ -217,12 +228,8 @@
  '(ansi-color-names-vector ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#ad7fa8" "#8cc4ff" "#eeeeec"])
  ;;'(custom-enabled-themes (quote (solarized-dark)))
  '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
- '(fill-column 100)
- '(initial-buffer-choice "c:/Users/srki/OrgMode/meta.org")
- '(org-agenda-files (quote ("c:/Users/srki/OrgMode")))
  '(org-agenda-span (quote month))
  '(send-mail-function (quote mailclient-send-it))
- '(tool-bar-mode nil)
  '(user-full-name "Srki Rakic")
  '(user-mail-address "srki@strsoftware.com"))
 (custom-set-faces
