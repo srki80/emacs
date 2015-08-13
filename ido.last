@@ -8,6 +8,9 @@
 
 ;; ----- ido-work-directory-list -----
 (
+ "c:/Users/srki/AppData/Roaming/.emacs.d/"
+ "C:/Users/srki/Desktop/OrgMode/"
+ "c:/Users/srki/Desktop/OrgMode/"
  "/Users/srki/source/aventx/fcdrived/"
  "/Users/srki/source/aventx/fcschedd/"
  "/Users/srki/source/aventx/fclib/"
@@ -16,16 +19,30 @@
 
 ;; ----- ido-work-file-list -----
 (
+ "init.el"
+ "meta.org"
+ "max_number_of_pages.org"
+ "notes.org"
+ "jde_bip.org"
  "email.cc"
  "fcschedd.cc"
  "faxqueue.cc"
  "fdintrfc.cc"
- "init.el"
  "README.md"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
+ ("c:/Users/srki/AppData/Roaming/.emacs.d/" (21964 37349 0 0) "tramp" "themes/" "solarized.el" "semanticdb/" "README.rdoc" "README.md" "popup.elc" "popup.el" "org/" "init.el~" "init.el" "init - Copy.el" "ido.last~" "ido.last" "google-contacts.el.txt" "elpa/" "ede-projects.el" "diary" "bookmarks" "auto-save-list/" "ac-comphist.dat" ".git/" "%backup%~" "../" "./")
+
+ ("c:/Users/srki/Desktop/OrgMode/" (21964 35574 0 0) "notes.org" "meta.org~" "meta.org" "max_number_of_pages.org" "jde_bip.org" "#meta.org#" "../" "./")
+
+ ("C:/Users/srki/Desktop/OrgMode/" (21964 35574 0 0) "notes.org" "meta.org~" "meta.org" "max_number_of_pages.org" "jde_bip.org" "#meta.org#" "../" "./")
+
+ ("c:/Users/srki/AppData/Roaming/" (21963 39761 0 0) "Wireshark/" "winscp.rnd" "WinRAR/" "webex/" "VMware/" "Subversion/" "Sublime Text 3/" "STR_Software/" "STR Software/" "SQL Developer/" "Spark/" "SolidDocuments/" "Realtime Soft/" "PDAppFlex/" "NuGet/" "Notepad++/" "News/" "NetBeans/" "Mozilla/" "Microsoft FxCop/" "Microsoft/" "Media Center Programs/" "Macromedia/" "LibreOffice/" "KVIrc4/" "JetBrains/" "JAM Software/" "Interact Commerce/" "init.el" "Identities/" "Greenshot/" "GHISLER/" "emacs.tar.gz" "emacs.d.zip" "emacs.d.7.14.2015.zip" "Dokan/" "diary~" "diary" "com.adobe.downloadassistant.AdobeDownloadAssistant/" "burnaware.ini" "Adobe/" "ActiveState/" ".purple/" ".newsrc.eld" ".newsrc" ".ido.last~" ".ido.last" ".emacs~" ".emacs.emacs" ".emacs.d.bak.8.12.15/" ".emacs.d.bak/" ".emacs.d/" ".emacs.bak.emacs" " - Copy.emacs" "../" "./")
+
+ ("c:/Program Files (x86)/emacs-24.5/bin/" (21933 5373 0 0) "runemacs.exe" "libXpm.dll" "grep-changelog" "etags.exe" "emacsclientw.exe" "emacsclient.exe" "emacs.exe" "emacs-24.5.exe" "ebrowse.exe" "ctags.exe" "addpm.exe" "#test.org#~" "#test.org#" "##test.org##" "../" "./")
+
  ("/Users/srki/source/aventx/fclib/" (21946 56671 0 0) "zipfax.cc" "workfile.cc" "wakefax.cc" "versionhardwaredevice.cc" "usrprmpt.cc" "tmpkey.cc" "tcpip.cc" "strscandir.cc" "strlog.cc" "String.List.cc" "String.FaxJob.Map.cc" "String.FaxJob.AVLMap.cc" "startup.cc" "servrlst.cc" "server.cc" "sendmail.cc" "rptargs.cc" "resqueue.cc" "rescodes.cc" "rescdlst.cc" "refreshlcrtabledevice.cc" "refreshlcrtable.cc" "recipint.cc" "purgerw.cc" "purgefax.cc" "pToken.List.cc" "progmsg.cc" "profile.cc" "pPlaceToken.List.cc" "port.cc" "phonelin.cc" "phonebok.cc" "parseutl.cc" "parsefax.cc" "parseerr.cc" "parsecom.cc" "parseasm.cc" "pager.cc" "newfax.cc" "misc.cc" "mime.cc" "Makefile" "liststatistics.cc" "JobEntry.List.cc" "ipc.cc" "grphclst.cc" "fileutil.cc" "fifo.cc" "faxtime.cc" "faxsvclst.cc" "faxsvc.cc" "faxrpt.cc" "faxqueue.cc" "faxlist.cc" "faxkey.cc" "faxjob.cc" "faxinque.cc" "faxinlst.cc" "faxdvlst.cc" "faxdttm.cc" "faxdev.cc" "faxdelta.cc" "faxdate.cc" "faxcfg.com" "fax.cc" "devLCR.cc" "devclang.cc" "custom.cc" "createcfg.cc" "countfax.cc" "config.cc" "busylist.cc" "attmrg.cc" "attchinf.cc" "ackfmt.doc" "ackfile.cc" ".cvsignore" "../" "./")
 
  ("/Users/srki/source/aventx/fcschedd/" (21941 5663 0 0) "Makefile" "fcschedd.cc~" "fcschedd.cc" ".cvsignore" "../" "./")
