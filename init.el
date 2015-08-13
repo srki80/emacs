@@ -19,6 +19,12 @@
 (if (eq system-type 'windows-nt)
 (setq default-directory "C:/Users/srki/Desktop/OrgMode/"))
 
+(if (eq system-type 'gnu/linux)
+(setq default-directory "/home/srki/Documents/orgmode/"))
+
+(if (eq system-type 'darwin)
+(setq default-directory "/Users/srki/Documents/orgmode/"))
+
 ;; Theme
 ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 ;;(load-theme 'solarized t)
