@@ -12,7 +12,7 @@
 ;; Set default font
 (if (eq system-type 'darwin)
     (set-default-font "Monaco-13")
-    (set-default-font "Consolas-12k")
+    (set-default-font "Consolas-11")
 )
 ;; Get rid of the butt ugly scrollbars in GUI
 (when (display-graphic-p) (set-scroll-bar-mode nil))
