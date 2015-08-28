@@ -7,6 +7,10 @@
  (front-context-string . "** TODO Test cap")
  (rear-context-string)
  (position . 9))
+ (filename . "c:/Users/srki/Desktop/OrgMode/notes.org")
+ (front-context-string . "**** Great idea ")
+ (rear-context-string . "15-08-17 Monday\n")
+ (position . 49))
 ("B2966"
  (filename . "~/src/oa_new/ins/aoocayod.proc.c.sh")
  (front-context-string . "\n\nPROCEDURE Repl")
