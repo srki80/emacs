@@ -9,9 +9,9 @@
 
 ;; ----- ido-work-directory-list -----
 (
- "/Users/srki/.emacs.d/"
  "/Users/srki/Documents/orgmode/"
  "/Users/srki/.emacs.d/elisp/"
+ "/Users/srki/.emacs.d/"
  "c:/Users/srki/AppData/Roaming/.emacs.d/"
  "C:/Users/srki/Desktop/OrgMode/"
  "c:/Users/srki/Desktop/OrgMode/"
@@ -22,27 +22,27 @@
 
 ;; ----- ido-work-file-list -----
 (
- "init.el"
- "max_number_of_pages.org"
  "meta.org"
- "evilmode.cfg"
+ "notes.org"
  "orgmode.cfg"
+ "init.el"
+ "meetings.org"
+ "max_number_of_pages.org"
+ "evilmode.cfg"
  "programming.cfg"
  "meeting_template.org"
- "notes.org"
  "jde_bip.org"
- "email.cc"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
+ ("/Users/srki/Documents/orgmode/" (21970 35987 0 0) "notes.org" "meta.org~" "meta.org" "meetings.org" "meeting_template.org" "meeting.org~" "max_number_of_pages.tex" "max_number_of_pages.org" "max_number_of_pages.html~" "max_number_of_pages.html" "jde_bip.org" ".git/" "../" "./")
+
+ ("/Users/srki/.emacs.d/elisp/" (21969 61662 0 0) "spellcheck.cfg" "programming.cfg~" "programming.cfg" "orgmode.cfg" "evilmode.cfg" "#programming.cfg#" "../" "./")
+
+ ("/Users/srki/.emacs.d/" (21969 15026 0 0) "tramp" "themes/" "solarized.el" "semanticdb/" "README.rdoc" "README.md" "popup.elc" "popup.el" "org/" "init.el~" "init.el" "init - Copy.el" "ido.last~" "ido.last" "google-contacts.el.txt" "elpa/" "elisp/" "ede-projects.el" "diary" "bookmarks" "auto-save-list/" "ac-comphist.dat" ".git/" "%backup%~" "../" "./")
+
  ("/Users/srki/" (21965 19656 0 0) "source/" "Public/" "Pictures/" "NetBeansProjects/" "Music/" "Movies/" "Library/" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "Applications/" ".zshrc-e" ".zshrc" ".zsh_history" ".zsh-update" ".zlogin" ".zcompdump-Srdjan’s MacBook Pro-5.0.5" ".zcompdump-macbookpro-5.0.5" ".zcompdump" ".vnc/" ".vimrc.org" ".vimrc" ".viminfo" ".vim.org/" ".vim/" ".Trash/" ".tmux.conf" ".tmux/" ".tigrc" ".stashconfig.yml" ".ssh/" ".sqldeveloper/" ".rvm/" ".psqlrc" ".profile" ".p2/" ".netbeans-derby/" ".mkshrc" ".m2/" ".lesshst" ".IntelliJIdea14/" ".gradle/" ".gitconfig" ".gemrc" ".gem/" ".emacs.d/" ".eclipse/" ".DS_Store" ".ctags" ".config/" ".CFUserTextEncoding" ".cache/" ".bashrc" ".bash_profile" ".bash_history" ".antigen.zsh" ".antigen/" ".AndroidStudio1.3/" ".android/" ".ackrc" "../" "./")
-
- ("/Users/srki/.emacs.d/" (21965 18141 0 0) "tramp" "themes/" "solarized.el" "semanticdb/" "README.rdoc" "README.md" "popup.elc" "popup.el" "org/" "init.el~" "init.el" "init - Copy.el" "ido.last~" "ido.last" "google-contacts.el.txt" "elpa/" "elisp/" "ede-projects.el" "diary" "bookmarks" "auto-save-list/" "ac-comphist.dat" ".git/" "%backup%~" "../" "./")
-
- ("/Users/srki/.emacs.d/elisp/" (21965 18115 0 0) "spellcheck.cfg" "programming.cfg~" "programming.cfg" "orgmode.cfg" "evilmode.cfg" "#programming.cfg#" "../" "./")
-
- ("/Users/srki/Documents/orgmode/" (21965 17161 0 0) "notes.org" "meta.org~" "meta.org" "meetings.org" "meeting_template.org" "meeting.org~" "max_number_of_pages.org" "jde_bip.org" ".git/" "../" "./")
 
  ("/Users/srki/source/aventx/fcdrived/" (21958 861 0 0) "xmlsubmissionfile.cc" "wirefasterrorlist.cc" "wirefast.cc" "str200.cc" "srvhdr.cc" "srvbridge.cc" "rightfax.cc" "rfedc.cc" "Makefile" "made" "fxdvdrvr.cc" "ftperrorlist.cc" "ftp.cc" "fnetmoves.cc" "fdintrfc.cc" "fcdrived.cc" "faxcom.cc" "fanywhere.cc" "f4000.cc" "f2001.cc" "email.cc" "bds.cc" "acktemplate.cc" ".cvsignore" "#wirefast.cc#" "#email.cc#" "../" "./")
 
