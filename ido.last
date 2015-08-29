@@ -9,47 +9,42 @@
 
 ;; ----- ido-work-directory-list -----
 (
- "/Users/srki/Documents/orgmode/"
  "/Users/srki/.emacs.d/elisp/"
  "/Users/srki/.emacs.d/"
+ "/Users/srki/Documents/orgmode/"
  "C:/Users/srki/Desktop/OrgMode/"
  "c:/Users/srki/AppData/Roaming/.emacs.d/elisp/"
  "c:/Users/srki/AppData/Roaming/.emacs.d/"
  "/Users/srki/source/aventx/fcdrived/"
  "/Users/srki/source/aventx/fcschedd/"
  "/Users/srki/source/aventx/fclib/"
- "/Users/srki/.emacs.d/"
 )
 
 ;; ----- ido-work-file-list -----
 (
+ "gnus.cfg"
+ "init.el"
+ "watermark.tex"
+ "watermark.org"
+ "watermark.log"
  "meetings.org"
  "max_number_of_pages.org"
  "evilmode.cfg"
  "programming.cfg"
  "meeting_template.org"
- "jde_bip.org"
- "meta.org_archive"
- "arrow.org"
- "meta.org"
- "notes.org"
- "max_number_of_pages.org"
- "meta.html"
- "jde_upgrade.org"
- "orgmode.cfg"
- "init.el"
- "spellcheck.cfg"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/Users/srki/Documents/orgmode/" (21970 35987 0 0) "notes.org" "meta.org~" "meta.org" "meetings.org" "meeting_template.org" "meeting.org~" "max_number_of_pages.tex" "max_number_of_pages.org" "max_number_of_pages.html~" "max_number_of_pages.html" "jde_bip.org" ".git/" "../" "./")
+ ("/Users/srki/.emacs.d/" (21985 8883 0 0) "tramp" "themes/" "solarized.el" "semanticdb/" "README.rdoc" "README.md" "popup.elc" "popup.el" "org/" "init.el~" "init.el" "init - Copy.el" "ido.last~" "ido.last" "google-contacts.el.txt" "elpa/" "elisp/" "ede-projects.el" "diary" "bookmarks" "auto-save-list/" "ac-comphist.dat" ".git/" "%backup%~" "../" "./")
 
- ("/Users/srki/.emacs.d/elisp/" (21969 61662 0 0) "spellcheck.cfg" "programming.cfg~" "programming.cfg" "orgmode.cfg" "evilmode.cfg" "#programming.cfg#" "../" "./")
+ ("/Users/srki/.emacs.d/elisp/" (21985 8880 0 0) "spellcheck.cfg" "programming.cfg~" "programming.cfg" "orgmode.cfg" "gnus.cfg~" "gnus.cfg" "evilmode.cfg" "#programming.cfg#" "../" "./")
 
- ("/Users/srki/.emacs.d/" (21969 15026 0 0) "tramp" "themes/" "solarized.el" "semanticdb/" "README.rdoc" "README.md" "popup.elc" "popup.el" "org/" "init.el~" "init.el" "init - Copy.el" "ido.last~" "ido.last" "google-contacts.el.txt" "elpa/" "elisp/" "ede-projects.el" "diary" "bookmarks" "auto-save-list/" "ac-comphist.dat" ".git/" "%backup%~" "../" "./")
+ ("/Users/srki/source/aventx/fcdrived/" (21958 861 0 0) "xmlsubmissionfile.cc" "wirefasterrorlist.cc" "wirefast.cc" "str200.cc" "srvhdr.cc" "srvbridge.cc" "rightfax.cc" "rfedc.cc" "Makefile" "made" "fxdvdrvr.cc" "ftperrorlist.cc" "ftp.cc" "fnetmoves.cc" "fdintrfc.cc" "fcdrived.cc" "faxcom.cc" "fanywhere.cc" "f4000.cc" "f2001.cc" "email.cc" "bds.cc" "acktemplate.cc" ".cvsignore" "#wirefast.cc#" "#email.cc#" "../" "./")
 
- ("/Users/srki/" (21965 19656 0 0) "source/" "Public/" "Pictures/" "NetBeansProjects/" "Music/" "Movies/" "Library/" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "Applications/" ".zshrc-e" ".zshrc" ".zsh_history" ".zsh-update" ".zlogin" ".zcompdump-Srdjan’s MacBook Pro-5.0.5" ".zcompdump-macbookpro-5.0.5" ".zcompdump" ".vnc/" ".vimrc.org" ".vimrc" ".viminfo" ".vim.org/" ".vim/" ".Trash/" ".tmux.conf" ".tmux/" ".tigrc" ".stashconfig.yml" ".ssh/" ".sqldeveloper/" ".rvm/" ".psqlrc" ".profile" ".p2/" ".netbeans-derby/" ".mkshrc" ".m2/" ".lesshst" ".IntelliJIdea14/" ".gradle/" ".gitconfig" ".gemrc" ".gem/" ".emacs.d/" ".eclipse/" ".DS_Store" ".ctags" ".config/" ".CFUserTextEncoding" ".cache/" ".bashrc" ".bash_profile" ".bash_history" ".antigen.zsh" ".antigen/" ".AndroidStudio1.3/" ".android/" ".ackrc" "../" "./")
+ ("/Users/srki/Documents/orgmode/" (21985 5283 0 0) "watermark.tex" "watermark.pdf" "watermark.org" "notes.org" "missfont.log" "meta.org~" "meta.org" "meetings.org" "meeting_template.org" "meeting.org~" "max_number_of_pages.tex" "max_number_of_pages.org" "max_number_of_pages.html~" "max_number_of_pages.html" "jde_upgrade.org" "jde_bip.org" "arrow.org" ".git/" ".DS_Store" "../" "./")
+
+ ("/Users/srki/" (21984 62396 0 0) "source/" "Public/" "Pictures/" "NetBeansProjects/" "Music/" "Movies/" "Library/" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "Applications/" ".zshrc-e" ".zshrc" ".zsh_history" ".zsh-update" ".zlogin" ".zcompdump-Srdjan’s MacBook Pro-5.0.5" ".zcompdump-macbookpro-5.0.5" ".zcompdump" ".vnc/" ".vimrc.org" ".vimrc" ".viminfo" ".vim.org/" ".vim/" ".Trash/" ".tmux.conf" ".tmux/" ".tigrc" ".stashconfig.yml" ".ssh/" ".sqldeveloper/" ".rvm/" ".psqlrc" ".profile" ".p2/" ".netbeans-derby/" ".mkshrc" ".m2/" ".lesshst" ".IntelliJIdea14/" ".gradle/" ".gitconfig" ".gemrc" ".gem/" ".emacs.d/" ".eclipse/" ".DS_Store" ".ctags" ".config/" ".CFUserTextEncoding" ".cache/" ".bashrc" ".bash_profile" ".bash_history" ".antigen.zsh" ".antigen/" ".AndroidStudio1.3/" ".android/" ".ackrc" "../" "./")
 
  ("C:/Users/srki/Desktop/OrgMode/" (21969 64794 0 0) "notes.org~" "notes.org" "meta.org~" "meta.org" "meta.html~" "meta.html" "meeting_template.org~" "meeting_template.org" "meetings.org~" "meetings.org" "meeting.org~" "max_number_of_pages.org" "jde_upgrade.org~" "jde_upgrade.org" "jde_upgrade.html~" "jde_upgrade.html" "jde_bip.org" ".git/" "../" "./")
 
@@ -68,8 +63,6 @@
  ("/Users/srki/.emacs.d/" (21942 54155 0 0) "tramp" "themes/" "solarized.el" "semanticdb/" "README.rdoc" "README.md" "popup.elc" "popup.el" "org/" "init.el~" "init.el" "init - Copy.el" "ido.last~" "ido.last" "google-contacts.el.txt" "elpa/" "ede-projects.el" "diary" "bookmarks" "auto-save-list/" "ac-comphist.dat" ".git/" "%backup%~" "../" "./")
 
  ("/Users/srki/" (21946 49005 0 0) "source/" "Public/" "Pictures/" "NetBeansProjects/" "Music/" "Movies/" "Library/" "Downloads/" "dotfiles/" "Documents/" "Desktop/" "Applications/" ".zshrc-e" ".zshrc" ".zsh_history" ".zsh-update" ".zlogin" ".zcompdump-Srdjan’s MacBook Pro-5.0.5" ".zcompdump-macbookpro-5.0.5" ".zcompdump" ".vnc/" ".vimrc.org" ".vimrc" ".viminfo" ".vim.org/" ".vim/" ".Trash/" ".tmux.conf" ".tmux/" ".tigrc" ".stashconfig.yml" ".ssh/" ".sqldeveloper/" ".rvm/" ".psqlrc" ".profile" ".p2/" ".netbeans-derby/" ".mkshrc" ".m2/" ".lesshst" ".gitconfig" ".gemrc" ".gem/" ".emacs.d/" ".eclipse/" ".DS_Store" ".ctags" ".config/" ".CFUserTextEncoding" ".cache/" ".bashrc" ".bash_profile" ".bash_history" ".antigen.zsh" ".antigen/" ".ackrc" "../" "./")
-
- ("/Users/srki/source/aventx/fcdrived/" (21940 9661 0 0) "xmlsubmissionfile.cc" "wirefasterrorlist.cc" "wirefast.cc" "str200.cc" "srvhdr.cc" "srvbridge.cc" "rightfax.cc" "rfedc.cc" "Makefile" "made" "fxdvdrvr.cc" "ftperrorlist.cc" "ftp.cc" "fnetmoves.cc" "fdintrfc.cc" "fcdrived.cc" "faxcom.cc" "fanywhere.cc" "f4000.cc" "f2001.cc" "email.cc" "bds.cc" "acktemplate.cc" ".cvsignore" "#wirefast.cc#" "../" "./")
 
  ("/Users/srki/source/aventx/" (21940 13088 0 0) "winstall.mk" "utility/" "tests/" "test.mk" "srvtest/" "smtp/" "setup.mk" "s1lib/" "regenlic/" "recover/" "psparse/" "prxrund/" "prxdrvd/" "prxcomd/" "printctl/" "pbutil/" "orasync/" "netmoves/" "nbproject/" "man.rtf/" "Makefile" "makeconvert" "m_win" "m_sun10" "m_sun" "m_linux" "m_hpux" "m_cygwin" "m_alpha" "m_aix6" "m_aix" "install.mk" "INSTALL/" "include/" "hpuxia64_libs/" "gzip/" "genlice/" "fctr/" "fcstatus/" "fcsrv/" "fcschedd/" "fcscand/" "fcrm/" "fcpsextract/" "fcphonex/" "fcphone/" "fcpdfextract/" "fcmsgd/" "fcmgr/" "fcls/" "fclp/" "fclib/" "FCHOME/" "fcdrvprx/" "fcdrived/" "fccntrld/" "fcclean/" "fanylib/" "faircom/" "encode64/" "Doxyfile" "dbsgl/" "dblib/" "dbdump/" "datadict/" "CountryCodes.txt" "convert_xtdhdr/" "convert/" "conclient/" "commlib/" "clean.mk" "chklice/" "build_scripts/" "build.mk" "binupd.mk" "bdslib/" "AXWinService/" "autoctor" "aoocstat/" "aooclink/" "aooclib/" "aix6_libs/" ".git/" ".cvsignore" ".cproject" "../" "./")
 

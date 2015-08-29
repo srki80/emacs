@@ -88,6 +88,7 @@
 (load-file "~/.emacs.d/elisp/spellcheck.cfg")
 (load-file "~/.emacs.d/elisp/evilmode.cfg")
 (load-file "~/.emacs.d/elisp/programming.cfg")
+(load-file "~/.emacs.d/elisp/gnus.cfg")
 
 
 ;; default to better frame titles
